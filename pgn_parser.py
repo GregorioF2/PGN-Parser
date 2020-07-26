@@ -69,7 +69,7 @@ def p_partida(t):
     'partida : metadata movimientos resultado'
 
 def p_metadata(t):
-    '''metadata : LBRACKET relleno RBRACKET
+    '''metadata : LBRACKET relleno RBRACKET metadata
                 | empty'''
 
 def p_movimientos(t):
@@ -114,14 +114,3 @@ def p_error(t):
 
 import ply.yacc as yacc
 parser = yacc.yacc()
-
-
-while True:
-    try:
-        aceptado = True
-        s = input('calc > ')   # Use raw_input on Python 2
-    except EOFError:
-        break
-    parser.parse(s)
-    if aceptado:
-      print('Input ACEPTADO')
