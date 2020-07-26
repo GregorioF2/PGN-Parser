@@ -88,15 +88,17 @@ def p_jugada(t):
               | MOVEMENT MOVEMENT'''
 
 def p_comentario(t):
-    '''comentario : LPAREN turno RPAREN
-                  | LKEY turno RKEY
-                  | LPAREN relleno RPAREN
+    '''comentario : LPAREN relleno RPAREN
                   | LKEY relleno RKEY
                   | empty'''
 
 def p_relleno(t):
-    '''relleno : ID relleno
+    '''relleno : tr relleno
                | empty'''
+
+def p_tr(t):
+    '''tr : ID
+          | MOVEMENT'''
 
 def p_resultado(t):
     '''resultado : RESULT
