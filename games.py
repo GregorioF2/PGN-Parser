@@ -21,3 +21,35 @@ Rec8 22. Qb2 Nc5 23. Re3 Bxb3 24. Bxg7 Rg4 25. Bxh6 Bf6
 36. a4 Rc4 37. a5 Rb4 38. Rd7 bxa5 39. Rxa7 a4 40. Rdd7 Nd8
 41. Rd5 Ne6 42. Rda5 Rcc4 43. Kg2 1-0
 '''
+
+small_game_three_coments_nested = '''[Event "GCT Croatia"]
+[PlyCount "85"]
+
+1. d4 Nf6 {2. c4 e6{asdaljlakd c4 {} {asdasd {Bxb3}} asdsad asd} asd} 2. c4 e6 3. Nf3 d5 4. Nc3 Be7 5. Bf4 O-O 6. e3 c5
+36. a4 Rc4 37. a5 Rb4 38. Rd7 bxa5 39. Rxa7 a4 40. Rdd7 Nd8
+41. Rd5 Ne6 42. Rda5 Rcc4 43. Kg2 1-0
+'''
+
+multiple_games = '''[Event "GCT Croatia"]
+[Site "Zagreb CRO"]
+[Date "2019.07.01"]
+[PlyCount "85"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 Be7 5. Bf4 O-O 6. e3 c5
+41. Rd5 Ne6 42. Rda5 Rcc4 43. Kg2 1-0
+
+[Event "GCT Croatia"]
+[Site "Zagreb CRO"]
+[Date "2019.07.01"]
+[PlyCount "85"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 Be7 5. Bf4 O-O 6. e3 c5
+41. Rd5 Ne6 42. Rda5 Rcc4 43. Kg2 1-0
+
+[Event "GCT Croatia"]
+[Site "Zagreb CRO"]
+[Date "2019.07.01"]
+[PlyCount "85"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 Be7 5. Bf4 O-O 6. e3 c5
+41. Rd5 Ne6 42. Rda5 Rcc4 43. Kg2 1-0'''
