@@ -71,13 +71,33 @@ precedence = (
     ('left', 'ID'),
 )
 
-gamecount = 0
+last_play = None
+max_nested_level = 0
+plays = {}
+
+def p_s(t):
+    's : game'
+    global plays
+    global last_play
+    global max_nested_level
+    res =  (last_play, plays[last_play])
+    for x in plays:
+        if plays[x] > res[1]:
+            res = (x, plays[x])
+    print('La primer jugada mas hecha en la serie es: ', res[0])
+    print('Maximo nivel de anidamiento con una jugada dentro es: ', max_nested_level)
+    plays = {}
+    last_play = None
+
 
 def p_game_empty(t):
     'game : metadata mov_1 result game'
-    global gamecount
-    gamecount += 1
-    print('Game number : ', gamecount)
+    global plays
+    global last_play
+    if not (last_play in plays):
+        plays[last_play] = 1
+    else:
+        plays[last_play] +=1
 
 def p_game_fill(t):
     'game : empty'
@@ -88,24 +108,28 @@ def p_metadata(t):
 
 def p_mov_1_fill(t):
     'mov_1 : sep_1 MOVEMENT comment_0 mov_2'
+    global last_play
+    last_play = t[2]
 
 def p_mov_1_empty(t):
     'mov_1 : empty'
-    pass
 
 def p_sep_1(t):
     '''sep_1 : DOTS
              | TDOTS'''
 
 def p_comment_0(t):
-    '''comment_0 : comment_1
-                 | empty'''
+    'comment_0 : comment_1'
+    global max_nested_level
+    max_nested_level = t[1] if t[1] > max_nested_level else max_nested_level
+
+def p_comment_0_empty(t):
+    'comment_0 : empty'
 
 def p_comment_1(t):
     '''comment_1 : LPAREN comm_fill_1 RPAREN
                  | LKEY comm_fill_1 RKEY'''
     t[0] = t[2]
-    print(t[0])
 
 
 def p_mov_2_fill(t):
