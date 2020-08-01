@@ -1,21 +1,21 @@
 
-### Install PGN-Parser locally
+### Instalar PGN-Parser localmente
 
-* Clone this repo
-  `git clone https://github.com/GregorioF2/PGN-Parser.git
-* Enter repo
+* Clonar repo
+  `git clone https://github.com/GregorioF2/PGN-Parser.git`
+* Entrar en la carpeta
   `cd PGN-Parser`  
-* Create a Python 3.6 virtual environment  
+* Crear ambiente virtual para python Python 3.6
   ```
   virtualenv --python=/usr/bin/python3.6 venv
   . venv/bin/activate
   ```
-* Install Python requirements
+* Instalar requerimientos
   ```
   pip install -r requirements.txt
   ```
 
-### Run parser
+### Correr parser
   El `testing.py` es el archivo principal para correr y testear el modulo.
   Los comandos serían:
   * `-ls`, `--live_stream`  Si qres testear el parser con live stream input
