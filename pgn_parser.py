@@ -182,7 +182,6 @@ def p_error(t):
     global aceptado
     aceptado = False
     print('Input RECHAZADO')
-    print("Syntax error at '%s'" % t)
 
 import ply.yacc as yacc
 parser = yacc.yacc()

@@ -43,7 +43,7 @@ multiple_games = '''[Event "GCT Croatia"]
 [Date "2019.07.01"]
 [PlyCount "85"]
 
-1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 Be7 5. Bf4 O-O 6. e3 c5
+1. e4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 Be7 5. Bf4 O-O 6. e3 c5
 41. Rd5 Ne6 42. Rda5 Rcc4 43. Kg2 1-0
 
 [Event "GCT Croatia"]
@@ -51,5 +51,5 @@ multiple_games = '''[Event "GCT Croatia"]
 [Date "2019.07.01"]
 [PlyCount "85"]
 
-1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 Be7 5. Bf4 O-O 6. e3 c5
+1. e4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 Be7 5. Bf4 O-O 6. e3 c5
 41. Rd5 Ne6 42. Rda5 Rcc4 43. Kg2 1-0'''
