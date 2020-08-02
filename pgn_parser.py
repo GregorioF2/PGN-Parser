@@ -46,7 +46,7 @@ def t_RESULT(t):
     return t
 
 def t_ID(t):
-    r'([a-z]|[A-Z]|\d|"|:|-|\.)+'
+    r'([a-z]|[A-Z]|\d|"|:|-|\.|<|>|\*|\_|\?|\/|ó|í|\+)+'
     return t
 
 
@@ -119,12 +119,15 @@ def p_sep_1(t):
              | TDOTS'''
 
 def p_comment_0(t):
-    'comment_0 : comment_1'
+    'comment_0 : comment_1 comment_0'
     global max_nested_level
-    max_nested_level = t[1] if t[1] > max_nested_level else max_nested_level
+    incoming_max = t[1] if t[1] > t[2] else t[2]
+    max_nested_level = incoming_max if incoming_max > max_nested_level else max_nested_level
+    t[0] = max_nested_level
 
 def p_comment_0_empty(t):
     'comment_0 : empty'
+    t[0] = 0
 
 def p_comment_1(t):
     '''comment_1 : LPAREN comm_fill_1 RPAREN
@@ -149,7 +152,7 @@ def p_comm_fill_1_token(t):
 
 def p_comm_fill_1_comment(t):
     'comm_fill_1 : comment_1 comm_fill_1'
-    if t[1] > t[2]:
+    if t[1] >= t[2]:
         t[0] = t[1] + 1
     else: 
         t[0] = t[2]
@@ -160,6 +163,10 @@ def p_comm_fill_1_empty(t):
 
 def p_tok_id(t):
     'tok : ID'
+    t[0] = 0
+
+def p_tok_result(t):
+    'tok : RESULT'
     t[0] = 0
 
 def p_tok_mov(t):

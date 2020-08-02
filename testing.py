@@ -8,6 +8,8 @@ parser.add_argument('-ls', '--live_stream', action="store_true", help= 'Si qres 
 parser.add_argument('-t1', '--test_1', action="store_true", help='Correr parser para full game Hikaru Magnus')
 parser.add_argument('-t2', '--test_2', action="store_true", help='Correr parser para small test y nested comments')
 parser.add_argument('-t3', '--test_3', action="store_true", help='Correr parser para multiples partidas')
+parser.add_argument('-t4', '--test_4', action="store_true", help='Correr parser para partida de chess.com')
+parser.add_argument('-t5', '--test_5', action="store_true", help='Correr parser para historial de partidas chess.com')
 parser.add_argument('-a', '--all', action='store_true', help='Correr todos los test juntos')
 args = parser.parse_args()
 
@@ -38,6 +40,14 @@ def test3MultipleGames():
   print('Multiples partidas')
   runParser(games.multiple_games)
 
+def test4GameOfChessDotCom():
+  print('Partida descargada de chess.com')
+  runParser(games.game_of_chess_dot_com)
+
+def test5GamesChessDotCom():
+  print('Hisorial de partidas chess.com')
+  runParser(games.games_history_downloaded_chess_dot_com)
+
 if args.live_stream:
   liveStream()
 if args.test_1 or args.all:
@@ -46,3 +56,7 @@ if args.test_2 or args.all:
   test2NestedComment()
 if args.test_3 or args.all:
   test3MultipleGames()
+if args.test_4 or args.all:
+  test4GameOfChessDotCom()
+if args.test_5 or args.all:
+  test5GamesChessDotCom()

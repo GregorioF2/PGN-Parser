@@ -12,7 +12,7 @@ Rule 6     mov_1 -> sep_1 MOVEMENT comment_0 mov_2
 Rule 7     mov_1 -> empty
 Rule 8     sep_1 -> DOTS
 Rule 9     sep_1 -> TDOTS
-Rule 10    comment_0 -> comment_1
+Rule 10    comment_0 -> comment_1 comment_0
 Rule 11    comment_0 -> empty
 Rule 12    comment_1 -> LPAREN comm_fill_1 RPAREN
 Rule 13    comment_1 -> LKEY comm_fill_1 RKEY
@@ -22,11 +22,12 @@ Rule 16    comm_fill_1 -> tok comm_fill_1
 Rule 17    comm_fill_1 -> comment_1 comm_fill_1
 Rule 18    comm_fill_1 -> empty
 Rule 19    tok -> ID
-Rule 20    tok -> MOVEMENT
-Rule 21    tok -> sep_1
-Rule 22    result -> RESULT
-Rule 23    result -> empty
-Rule 24    empty -> <empty>
+Rule 20    tok -> RESULT
+Rule 21    tok -> MOVEMENT
+Rule 22    tok -> sep_1
+Rule 23    result -> RESULT
+Rule 24    result -> empty
+Rule 25    empty -> <empty>
 
 Terminals, with rules where they appear
 
@@ -35,9 +36,9 @@ ID                   : 19
 LBRACKET             : 4
 LKEY                 : 13
 LPAREN               : 12
-MOVEMENT             : 6 14 20
+MOVEMENT             : 6 14 21
 RBRACKET             : 4
-RESULT               : 22
+RESULT               : 20 23
 RKEY                 : 13
 RPAREN               : 12
 TDOTS                : 9
@@ -46,16 +47,16 @@ error                :
 Nonterminals, with rules where they appear
 
 comm_fill_1          : 4 12 13 16 17
-comment_0            : 6 14
+comment_0            : 6 10 14
 comment_1            : 10 17
-empty                : 3 5 7 11 15 18 23
+empty                : 3 5 7 11 15 18 24
 game                 : 1 2
 metadata             : 2 4
 mov_1                : 2 14
 mov_2                : 6
 result               : 2
 s                    : 0
-sep_1                : 6 21
+sep_1                : 6 22
 tok                  : 16
 
 Parsing method: LALR
@@ -68,16 +69,16 @@ state 0
     (3) game -> . empty
     (4) metadata -> . LBRACKET comm_fill_1 RBRACKET metadata
     (5) metadata -> . empty
-    (24) empty -> .
+    (25) empty -> .
 
   ! shift/reduce conflict for LBRACKET resolved as shift
     LBRACKET        shift and go to state 5
-    $end            reduce using rule 24 (empty -> .)
-    DOTS            reduce using rule 24 (empty -> .)
-    TDOTS           reduce using rule 24 (empty -> .)
-    RESULT          reduce using rule 24 (empty -> .)
+    $end            reduce using rule 25 (empty -> .)
+    DOTS            reduce using rule 25 (empty -> .)
+    TDOTS           reduce using rule 25 (empty -> .)
+    RESULT          reduce using rule 25 (empty -> .)
 
-  ! LBRACKET        [ reduce using rule 24 (empty -> .) ]
+  ! LBRACKET        [ reduce using rule 25 (empty -> .) ]
 
     s                              shift and go to state 1
     game                           shift and go to state 2
@@ -104,18 +105,18 @@ state 3
     (7) mov_1 -> . empty
     (8) sep_1 -> . DOTS
     (9) sep_1 -> . TDOTS
-    (24) empty -> .
+    (25) empty -> .
 
   ! shift/reduce conflict for DOTS resolved as shift
   ! shift/reduce conflict for TDOTS resolved as shift
     DOTS            shift and go to state 9
     TDOTS           shift and go to state 10
-    RESULT          reduce using rule 24 (empty -> .)
-    LBRACKET        reduce using rule 24 (empty -> .)
-    $end            reduce using rule 24 (empty -> .)
+    RESULT          reduce using rule 25 (empty -> .)
+    LBRACKET        reduce using rule 25 (empty -> .)
+    $end            reduce using rule 25 (empty -> .)
 
-  ! DOTS            [ reduce using rule 24 (empty -> .) ]
-  ! TDOTS           [ reduce using rule 24 (empty -> .) ]
+  ! DOTS            [ reduce using rule 25 (empty -> .) ]
+  ! TDOTS           [ reduce using rule 25 (empty -> .) ]
 
     mov_1                          shift and go to state 6
     sep_1                          shift and go to state 7
@@ -143,19 +144,21 @@ state 5
     (17) comm_fill_1 -> . comment_1 comm_fill_1
     (18) comm_fill_1 -> . empty
     (19) tok -> . ID
-    (20) tok -> . MOVEMENT
-    (21) tok -> . sep_1
+    (20) tok -> . RESULT
+    (21) tok -> . MOVEMENT
+    (22) tok -> . sep_1
     (12) comment_1 -> . LPAREN comm_fill_1 RPAREN
     (13) comment_1 -> . LKEY comm_fill_1 RKEY
-    (24) empty -> .
+    (25) empty -> .
     (8) sep_1 -> . DOTS
     (9) sep_1 -> . TDOTS
 
     ID              shift and go to state 15
-    MOVEMENT        shift and go to state 16
-    LPAREN          shift and go to state 18
-    LKEY            shift and go to state 19
-    RBRACKET        reduce using rule 24 (empty -> .)
+    RESULT          shift and go to state 16
+    MOVEMENT        shift and go to state 17
+    LPAREN          shift and go to state 19
+    LKEY            shift and go to state 20
+    RBRACKET        reduce using rule 25 (empty -> .)
     DOTS            shift and go to state 9
     TDOTS           shift and go to state 10
 
@@ -163,32 +166,32 @@ state 5
     tok                            shift and go to state 12
     comment_1                      shift and go to state 13
     empty                          shift and go to state 14
-    sep_1                          shift and go to state 17
+    sep_1                          shift and go to state 18
 
 state 6
 
     (2) game -> metadata mov_1 . result game
-    (22) result -> . RESULT
-    (23) result -> . empty
-    (24) empty -> .
+    (23) result -> . RESULT
+    (24) result -> . empty
+    (25) empty -> .
 
   ! shift/reduce conflict for RESULT resolved as shift
-    RESULT          shift and go to state 21
-    LBRACKET        reduce using rule 24 (empty -> .)
-    DOTS            reduce using rule 24 (empty -> .)
-    TDOTS           reduce using rule 24 (empty -> .)
-    $end            reduce using rule 24 (empty -> .)
+    RESULT          shift and go to state 22
+    LBRACKET        reduce using rule 25 (empty -> .)
+    DOTS            reduce using rule 25 (empty -> .)
+    TDOTS           reduce using rule 25 (empty -> .)
+    $end            reduce using rule 25 (empty -> .)
 
-  ! RESULT          [ reduce using rule 24 (empty -> .) ]
+  ! RESULT          [ reduce using rule 25 (empty -> .) ]
 
-    result                         shift and go to state 20
-    empty                          shift and go to state 22
+    result                         shift and go to state 21
+    empty                          shift and go to state 23
 
 state 7
 
     (6) mov_1 -> sep_1 . MOVEMENT comment_0 mov_2
 
-    MOVEMENT        shift and go to state 23
+    MOVEMENT        shift and go to state 24
 
 
 state 8
@@ -208,6 +211,7 @@ state 9
 
     MOVEMENT        reduce using rule 8 (sep_1 -> DOTS .)
     ID              reduce using rule 8 (sep_1 -> DOTS .)
+    RESULT          reduce using rule 8 (sep_1 -> DOTS .)
     LPAREN          reduce using rule 8 (sep_1 -> DOTS .)
     LKEY            reduce using rule 8 (sep_1 -> DOTS .)
     DOTS            reduce using rule 8 (sep_1 -> DOTS .)
@@ -223,6 +227,7 @@ state 10
 
     MOVEMENT        reduce using rule 9 (sep_1 -> TDOTS .)
     ID              reduce using rule 9 (sep_1 -> TDOTS .)
+    RESULT          reduce using rule 9 (sep_1 -> TDOTS .)
     LPAREN          reduce using rule 9 (sep_1 -> TDOTS .)
     LKEY            reduce using rule 9 (sep_1 -> TDOTS .)
     DOTS            reduce using rule 9 (sep_1 -> TDOTS .)
@@ -236,7 +241,7 @@ state 11
 
     (4) metadata -> LBRACKET comm_fill_1 . RBRACKET metadata
 
-    RBRACKET        shift and go to state 24
+    RBRACKET        shift and go to state 25
 
 
 state 12
@@ -246,29 +251,31 @@ state 12
     (17) comm_fill_1 -> . comment_1 comm_fill_1
     (18) comm_fill_1 -> . empty
     (19) tok -> . ID
-    (20) tok -> . MOVEMENT
-    (21) tok -> . sep_1
+    (20) tok -> . RESULT
+    (21) tok -> . MOVEMENT
+    (22) tok -> . sep_1
     (12) comment_1 -> . LPAREN comm_fill_1 RPAREN
     (13) comment_1 -> . LKEY comm_fill_1 RKEY
-    (24) empty -> .
+    (25) empty -> .
     (8) sep_1 -> . DOTS
     (9) sep_1 -> . TDOTS
 
     ID              shift and go to state 15
-    MOVEMENT        shift and go to state 16
-    LPAREN          shift and go to state 18
-    LKEY            shift and go to state 19
-    RBRACKET        reduce using rule 24 (empty -> .)
-    RPAREN          reduce using rule 24 (empty -> .)
-    RKEY            reduce using rule 24 (empty -> .)
+    RESULT          shift and go to state 16
+    MOVEMENT        shift and go to state 17
+    LPAREN          shift and go to state 19
+    LKEY            shift and go to state 20
+    RBRACKET        reduce using rule 25 (empty -> .)
+    RPAREN          reduce using rule 25 (empty -> .)
+    RKEY            reduce using rule 25 (empty -> .)
     DOTS            shift and go to state 9
     TDOTS           shift and go to state 10
 
     tok                            shift and go to state 12
-    comm_fill_1                    shift and go to state 25
+    comm_fill_1                    shift and go to state 26
     comment_1                      shift and go to state 13
     empty                          shift and go to state 14
-    sep_1                          shift and go to state 17
+    sep_1                          shift and go to state 18
 
 state 13
 
@@ -277,29 +284,31 @@ state 13
     (17) comm_fill_1 -> . comment_1 comm_fill_1
     (18) comm_fill_1 -> . empty
     (19) tok -> . ID
-    (20) tok -> . MOVEMENT
-    (21) tok -> . sep_1
+    (20) tok -> . RESULT
+    (21) tok -> . MOVEMENT
+    (22) tok -> . sep_1
     (12) comment_1 -> . LPAREN comm_fill_1 RPAREN
     (13) comment_1 -> . LKEY comm_fill_1 RKEY
-    (24) empty -> .
+    (25) empty -> .
     (8) sep_1 -> . DOTS
     (9) sep_1 -> . TDOTS
 
     ID              shift and go to state 15
-    MOVEMENT        shift and go to state 16
-    LPAREN          shift and go to state 18
-    LKEY            shift and go to state 19
-    RBRACKET        reduce using rule 24 (empty -> .)
-    RPAREN          reduce using rule 24 (empty -> .)
-    RKEY            reduce using rule 24 (empty -> .)
+    RESULT          shift and go to state 16
+    MOVEMENT        shift and go to state 17
+    LPAREN          shift and go to state 19
+    LKEY            shift and go to state 20
+    RBRACKET        reduce using rule 25 (empty -> .)
+    RPAREN          reduce using rule 25 (empty -> .)
+    RKEY            reduce using rule 25 (empty -> .)
     DOTS            shift and go to state 9
     TDOTS           shift and go to state 10
 
     comment_1                      shift and go to state 13
-    comm_fill_1                    shift and go to state 26
+    comm_fill_1                    shift and go to state 27
     tok                            shift and go to state 12
     empty                          shift and go to state 14
-    sep_1                          shift and go to state 17
+    sep_1                          shift and go to state 18
 
 state 14
 
@@ -315,6 +324,7 @@ state 15
     (19) tok -> ID .
 
     ID              reduce using rule 19 (tok -> ID .)
+    RESULT          reduce using rule 19 (tok -> ID .)
     MOVEMENT        reduce using rule 19 (tok -> ID .)
     LPAREN          reduce using rule 19 (tok -> ID .)
     LKEY            reduce using rule 19 (tok -> ID .)
@@ -327,83 +337,74 @@ state 15
 
 state 16
 
-    (20) tok -> MOVEMENT .
+    (20) tok -> RESULT .
 
-    ID              reduce using rule 20 (tok -> MOVEMENT .)
-    MOVEMENT        reduce using rule 20 (tok -> MOVEMENT .)
-    LPAREN          reduce using rule 20 (tok -> MOVEMENT .)
-    LKEY            reduce using rule 20 (tok -> MOVEMENT .)
-    DOTS            reduce using rule 20 (tok -> MOVEMENT .)
-    TDOTS           reduce using rule 20 (tok -> MOVEMENT .)
-    RBRACKET        reduce using rule 20 (tok -> MOVEMENT .)
-    RPAREN          reduce using rule 20 (tok -> MOVEMENT .)
-    RKEY            reduce using rule 20 (tok -> MOVEMENT .)
+    ID              reduce using rule 20 (tok -> RESULT .)
+    RESULT          reduce using rule 20 (tok -> RESULT .)
+    MOVEMENT        reduce using rule 20 (tok -> RESULT .)
+    LPAREN          reduce using rule 20 (tok -> RESULT .)
+    LKEY            reduce using rule 20 (tok -> RESULT .)
+    DOTS            reduce using rule 20 (tok -> RESULT .)
+    TDOTS           reduce using rule 20 (tok -> RESULT .)
+    RBRACKET        reduce using rule 20 (tok -> RESULT .)
+    RPAREN          reduce using rule 20 (tok -> RESULT .)
+    RKEY            reduce using rule 20 (tok -> RESULT .)
 
 
 state 17
 
-    (21) tok -> sep_1 .
+    (21) tok -> MOVEMENT .
 
-    ID              reduce using rule 21 (tok -> sep_1 .)
-    MOVEMENT        reduce using rule 21 (tok -> sep_1 .)
-    LPAREN          reduce using rule 21 (tok -> sep_1 .)
-    LKEY            reduce using rule 21 (tok -> sep_1 .)
-    DOTS            reduce using rule 21 (tok -> sep_1 .)
-    TDOTS           reduce using rule 21 (tok -> sep_1 .)
-    RBRACKET        reduce using rule 21 (tok -> sep_1 .)
-    RPAREN          reduce using rule 21 (tok -> sep_1 .)
-    RKEY            reduce using rule 21 (tok -> sep_1 .)
+    ID              reduce using rule 21 (tok -> MOVEMENT .)
+    RESULT          reduce using rule 21 (tok -> MOVEMENT .)
+    MOVEMENT        reduce using rule 21 (tok -> MOVEMENT .)
+    LPAREN          reduce using rule 21 (tok -> MOVEMENT .)
+    LKEY            reduce using rule 21 (tok -> MOVEMENT .)
+    DOTS            reduce using rule 21 (tok -> MOVEMENT .)
+    TDOTS           reduce using rule 21 (tok -> MOVEMENT .)
+    RBRACKET        reduce using rule 21 (tok -> MOVEMENT .)
+    RPAREN          reduce using rule 21 (tok -> MOVEMENT .)
+    RKEY            reduce using rule 21 (tok -> MOVEMENT .)
 
 
 state 18
+
+    (22) tok -> sep_1 .
+
+    ID              reduce using rule 22 (tok -> sep_1 .)
+    RESULT          reduce using rule 22 (tok -> sep_1 .)
+    MOVEMENT        reduce using rule 22 (tok -> sep_1 .)
+    LPAREN          reduce using rule 22 (tok -> sep_1 .)
+    LKEY            reduce using rule 22 (tok -> sep_1 .)
+    DOTS            reduce using rule 22 (tok -> sep_1 .)
+    TDOTS           reduce using rule 22 (tok -> sep_1 .)
+    RBRACKET        reduce using rule 22 (tok -> sep_1 .)
+    RPAREN          reduce using rule 22 (tok -> sep_1 .)
+    RKEY            reduce using rule 22 (tok -> sep_1 .)
+
+
+state 19
 
     (12) comment_1 -> LPAREN . comm_fill_1 RPAREN
     (16) comm_fill_1 -> . tok comm_fill_1
     (17) comm_fill_1 -> . comment_1 comm_fill_1
     (18) comm_fill_1 -> . empty
     (19) tok -> . ID
-    (20) tok -> . MOVEMENT
-    (21) tok -> . sep_1
+    (20) tok -> . RESULT
+    (21) tok -> . MOVEMENT
+    (22) tok -> . sep_1
     (12) comment_1 -> . LPAREN comm_fill_1 RPAREN
     (13) comment_1 -> . LKEY comm_fill_1 RKEY
-    (24) empty -> .
+    (25) empty -> .
     (8) sep_1 -> . DOTS
     (9) sep_1 -> . TDOTS
 
     ID              shift and go to state 15
-    MOVEMENT        shift and go to state 16
-    LPAREN          shift and go to state 18
-    LKEY            shift and go to state 19
-    RPAREN          reduce using rule 24 (empty -> .)
-    DOTS            shift and go to state 9
-    TDOTS           shift and go to state 10
-
-    comm_fill_1                    shift and go to state 27
-    tok                            shift and go to state 12
-    comment_1                      shift and go to state 13
-    empty                          shift and go to state 14
-    sep_1                          shift and go to state 17
-
-state 19
-
-    (13) comment_1 -> LKEY . comm_fill_1 RKEY
-    (16) comm_fill_1 -> . tok comm_fill_1
-    (17) comm_fill_1 -> . comment_1 comm_fill_1
-    (18) comm_fill_1 -> . empty
-    (19) tok -> . ID
-    (20) tok -> . MOVEMENT
-    (21) tok -> . sep_1
-    (12) comment_1 -> . LPAREN comm_fill_1 RPAREN
-    (13) comment_1 -> . LKEY comm_fill_1 RKEY
-    (24) empty -> .
-    (8) sep_1 -> . DOTS
-    (9) sep_1 -> . TDOTS
-
-    ID              shift and go to state 15
-    MOVEMENT        shift and go to state 16
-    LPAREN          shift and go to state 18
-    LKEY            shift and go to state 19
-    RKEY            reduce using rule 24 (empty -> .)
+    RESULT          shift and go to state 16
+    MOVEMENT        shift and go to state 17
+    LPAREN          shift and go to state 19
+    LKEY            shift and go to state 20
+    RPAREN          reduce using rule 25 (empty -> .)
     DOTS            shift and go to state 9
     TDOTS           shift and go to state 10
 
@@ -411,94 +412,125 @@ state 19
     tok                            shift and go to state 12
     comment_1                      shift and go to state 13
     empty                          shift and go to state 14
-    sep_1                          shift and go to state 17
+    sep_1                          shift and go to state 18
 
 state 20
+
+    (13) comment_1 -> LKEY . comm_fill_1 RKEY
+    (16) comm_fill_1 -> . tok comm_fill_1
+    (17) comm_fill_1 -> . comment_1 comm_fill_1
+    (18) comm_fill_1 -> . empty
+    (19) tok -> . ID
+    (20) tok -> . RESULT
+    (21) tok -> . MOVEMENT
+    (22) tok -> . sep_1
+    (12) comment_1 -> . LPAREN comm_fill_1 RPAREN
+    (13) comment_1 -> . LKEY comm_fill_1 RKEY
+    (25) empty -> .
+    (8) sep_1 -> . DOTS
+    (9) sep_1 -> . TDOTS
+
+    ID              shift and go to state 15
+    RESULT          shift and go to state 16
+    MOVEMENT        shift and go to state 17
+    LPAREN          shift and go to state 19
+    LKEY            shift and go to state 20
+    RKEY            reduce using rule 25 (empty -> .)
+    DOTS            shift and go to state 9
+    TDOTS           shift and go to state 10
+
+    comm_fill_1                    shift and go to state 29
+    tok                            shift and go to state 12
+    comment_1                      shift and go to state 13
+    empty                          shift and go to state 14
+    sep_1                          shift and go to state 18
+
+state 21
 
     (2) game -> metadata mov_1 result . game
     (2) game -> . metadata mov_1 result game
     (3) game -> . empty
     (4) metadata -> . LBRACKET comm_fill_1 RBRACKET metadata
     (5) metadata -> . empty
-    (24) empty -> .
+    (25) empty -> .
 
   ! shift/reduce conflict for LBRACKET resolved as shift
     LBRACKET        shift and go to state 5
-    $end            reduce using rule 24 (empty -> .)
-    RESULT          reduce using rule 24 (empty -> .)
-    DOTS            reduce using rule 24 (empty -> .)
-    TDOTS           reduce using rule 24 (empty -> .)
+    $end            reduce using rule 25 (empty -> .)
+    RESULT          reduce using rule 25 (empty -> .)
+    DOTS            reduce using rule 25 (empty -> .)
+    TDOTS           reduce using rule 25 (empty -> .)
 
-  ! LBRACKET        [ reduce using rule 24 (empty -> .) ]
+  ! LBRACKET        [ reduce using rule 25 (empty -> .) ]
 
     metadata                       shift and go to state 3
-    game                           shift and go to state 29
+    game                           shift and go to state 30
     empty                          shift and go to state 4
-
-state 21
-
-    (22) result -> RESULT .
-
-    RESULT          reduce using rule 22 (result -> RESULT .)
-    LBRACKET        reduce using rule 22 (result -> RESULT .)
-    DOTS            reduce using rule 22 (result -> RESULT .)
-    TDOTS           reduce using rule 22 (result -> RESULT .)
-    $end            reduce using rule 22 (result -> RESULT .)
-
 
 state 22
 
-    (23) result -> empty .
+    (23) result -> RESULT .
 
-    RESULT          reduce using rule 23 (result -> empty .)
-    LBRACKET        reduce using rule 23 (result -> empty .)
-    DOTS            reduce using rule 23 (result -> empty .)
-    TDOTS           reduce using rule 23 (result -> empty .)
-    $end            reduce using rule 23 (result -> empty .)
+    RESULT          reduce using rule 23 (result -> RESULT .)
+    LBRACKET        reduce using rule 23 (result -> RESULT .)
+    DOTS            reduce using rule 23 (result -> RESULT .)
+    TDOTS           reduce using rule 23 (result -> RESULT .)
+    $end            reduce using rule 23 (result -> RESULT .)
 
 
 state 23
 
+    (24) result -> empty .
+
+    RESULT          reduce using rule 24 (result -> empty .)
+    LBRACKET        reduce using rule 24 (result -> empty .)
+    DOTS            reduce using rule 24 (result -> empty .)
+    TDOTS           reduce using rule 24 (result -> empty .)
+    $end            reduce using rule 24 (result -> empty .)
+
+
+state 24
+
     (6) mov_1 -> sep_1 MOVEMENT . comment_0 mov_2
-    (10) comment_0 -> . comment_1
+    (10) comment_0 -> . comment_1 comment_0
     (11) comment_0 -> . empty
     (12) comment_1 -> . LPAREN comm_fill_1 RPAREN
     (13) comment_1 -> . LKEY comm_fill_1 RKEY
-    (24) empty -> .
+    (25) empty -> .
 
-    LPAREN          shift and go to state 18
-    LKEY            shift and go to state 19
-    MOVEMENT        reduce using rule 24 (empty -> .)
-    RESULT          reduce using rule 24 (empty -> .)
-    LBRACKET        reduce using rule 24 (empty -> .)
-    DOTS            reduce using rule 24 (empty -> .)
-    TDOTS           reduce using rule 24 (empty -> .)
-    $end            reduce using rule 24 (empty -> .)
+    LPAREN          shift and go to state 19
+    LKEY            shift and go to state 20
+    MOVEMENT        reduce using rule 25 (empty -> .)
+    RESULT          reduce using rule 25 (empty -> .)
+    LBRACKET        reduce using rule 25 (empty -> .)
+    DOTS            reduce using rule 25 (empty -> .)
+    TDOTS           reduce using rule 25 (empty -> .)
+    $end            reduce using rule 25 (empty -> .)
 
-    comment_0                      shift and go to state 30
-    comment_1                      shift and go to state 31
-    empty                          shift and go to state 32
+    comment_0                      shift and go to state 31
+    comment_1                      shift and go to state 32
+    empty                          shift and go to state 33
 
-state 24
+state 25
 
     (4) metadata -> LBRACKET comm_fill_1 RBRACKET . metadata
     (4) metadata -> . LBRACKET comm_fill_1 RBRACKET metadata
     (5) metadata -> . empty
-    (24) empty -> .
+    (25) empty -> .
 
   ! shift/reduce conflict for LBRACKET resolved as shift
     LBRACKET        shift and go to state 5
-    DOTS            reduce using rule 24 (empty -> .)
-    TDOTS           reduce using rule 24 (empty -> .)
-    RESULT          reduce using rule 24 (empty -> .)
-    $end            reduce using rule 24 (empty -> .)
+    DOTS            reduce using rule 25 (empty -> .)
+    TDOTS           reduce using rule 25 (empty -> .)
+    RESULT          reduce using rule 25 (empty -> .)
+    $end            reduce using rule 25 (empty -> .)
 
-  ! LBRACKET        [ reduce using rule 24 (empty -> .) ]
+  ! LBRACKET        [ reduce using rule 25 (empty -> .) ]
 
-    metadata                       shift and go to state 33
-    empty                          shift and go to state 34
+    metadata                       shift and go to state 34
+    empty                          shift and go to state 35
 
-state 25
+state 26
 
     (16) comm_fill_1 -> tok comm_fill_1 .
 
@@ -507,7 +539,7 @@ state 25
     RKEY            reduce using rule 16 (comm_fill_1 -> tok comm_fill_1 .)
 
 
-state 26
+state 27
 
     (17) comm_fill_1 -> comment_1 comm_fill_1 .
 
@@ -516,57 +548,67 @@ state 26
     RKEY            reduce using rule 17 (comm_fill_1 -> comment_1 comm_fill_1 .)
 
 
-state 27
+state 28
 
     (12) comment_1 -> LPAREN comm_fill_1 . RPAREN
 
-    RPAREN          shift and go to state 35
-
-
-state 28
-
-    (13) comment_1 -> LKEY comm_fill_1 . RKEY
-
-    RKEY            shift and go to state 36
+    RPAREN          shift and go to state 36
 
 
 state 29
+
+    (13) comment_1 -> LKEY comm_fill_1 . RKEY
+
+    RKEY            shift and go to state 37
+
+
+state 30
 
     (2) game -> metadata mov_1 result game .
 
     $end            reduce using rule 2 (game -> metadata mov_1 result game .)
 
 
-state 30
+state 31
 
     (6) mov_1 -> sep_1 MOVEMENT comment_0 . mov_2
     (14) mov_2 -> . MOVEMENT comment_0 mov_1
     (15) mov_2 -> . empty
-    (24) empty -> .
+    (25) empty -> .
 
-    MOVEMENT        shift and go to state 37
-    RESULT          reduce using rule 24 (empty -> .)
-    LBRACKET        reduce using rule 24 (empty -> .)
-    DOTS            reduce using rule 24 (empty -> .)
-    TDOTS           reduce using rule 24 (empty -> .)
-    $end            reduce using rule 24 (empty -> .)
+    MOVEMENT        shift and go to state 38
+    RESULT          reduce using rule 25 (empty -> .)
+    LBRACKET        reduce using rule 25 (empty -> .)
+    DOTS            reduce using rule 25 (empty -> .)
+    TDOTS           reduce using rule 25 (empty -> .)
+    $end            reduce using rule 25 (empty -> .)
 
-    mov_2                          shift and go to state 38
-    empty                          shift and go to state 39
-
-state 31
-
-    (10) comment_0 -> comment_1 .
-
-    MOVEMENT        reduce using rule 10 (comment_0 -> comment_1 .)
-    RESULT          reduce using rule 10 (comment_0 -> comment_1 .)
-    LBRACKET        reduce using rule 10 (comment_0 -> comment_1 .)
-    DOTS            reduce using rule 10 (comment_0 -> comment_1 .)
-    TDOTS           reduce using rule 10 (comment_0 -> comment_1 .)
-    $end            reduce using rule 10 (comment_0 -> comment_1 .)
-
+    mov_2                          shift and go to state 39
+    empty                          shift and go to state 40
 
 state 32
+
+    (10) comment_0 -> comment_1 . comment_0
+    (10) comment_0 -> . comment_1 comment_0
+    (11) comment_0 -> . empty
+    (12) comment_1 -> . LPAREN comm_fill_1 RPAREN
+    (13) comment_1 -> . LKEY comm_fill_1 RKEY
+    (25) empty -> .
+
+    LPAREN          shift and go to state 19
+    LKEY            shift and go to state 20
+    MOVEMENT        reduce using rule 25 (empty -> .)
+    RESULT          reduce using rule 25 (empty -> .)
+    LBRACKET        reduce using rule 25 (empty -> .)
+    DOTS            reduce using rule 25 (empty -> .)
+    TDOTS           reduce using rule 25 (empty -> .)
+    $end            reduce using rule 25 (empty -> .)
+
+    comment_1                      shift and go to state 32
+    comment_0                      shift and go to state 41
+    empty                          shift and go to state 33
+
+state 33
 
     (11) comment_0 -> empty .
 
@@ -578,7 +620,7 @@ state 32
     $end            reduce using rule 11 (comment_0 -> empty .)
 
 
-state 33
+state 34
 
     (4) metadata -> LBRACKET comm_fill_1 RBRACKET metadata .
 
@@ -589,7 +631,7 @@ state 33
     $end            reduce using rule 4 (metadata -> LBRACKET comm_fill_1 RBRACKET metadata .)
 
 
-state 34
+state 35
 
     (5) metadata -> empty .
 
@@ -600,11 +642,12 @@ state 34
     $end            reduce using rule 5 (metadata -> empty .)
 
 
-state 35
+state 36
 
     (12) comment_1 -> LPAREN comm_fill_1 RPAREN .
 
     ID              reduce using rule 12 (comment_1 -> LPAREN comm_fill_1 RPAREN .)
+    RESULT          reduce using rule 12 (comment_1 -> LPAREN comm_fill_1 RPAREN .)
     MOVEMENT        reduce using rule 12 (comment_1 -> LPAREN comm_fill_1 RPAREN .)
     LPAREN          reduce using rule 12 (comment_1 -> LPAREN comm_fill_1 RPAREN .)
     LKEY            reduce using rule 12 (comment_1 -> LPAREN comm_fill_1 RPAREN .)
@@ -613,16 +656,16 @@ state 35
     RBRACKET        reduce using rule 12 (comment_1 -> LPAREN comm_fill_1 RPAREN .)
     RPAREN          reduce using rule 12 (comment_1 -> LPAREN comm_fill_1 RPAREN .)
     RKEY            reduce using rule 12 (comment_1 -> LPAREN comm_fill_1 RPAREN .)
-    RESULT          reduce using rule 12 (comment_1 -> LPAREN comm_fill_1 RPAREN .)
     LBRACKET        reduce using rule 12 (comment_1 -> LPAREN comm_fill_1 RPAREN .)
     $end            reduce using rule 12 (comment_1 -> LPAREN comm_fill_1 RPAREN .)
 
 
-state 36
+state 37
 
     (13) comment_1 -> LKEY comm_fill_1 RKEY .
 
     ID              reduce using rule 13 (comment_1 -> LKEY comm_fill_1 RKEY .)
+    RESULT          reduce using rule 13 (comment_1 -> LKEY comm_fill_1 RKEY .)
     MOVEMENT        reduce using rule 13 (comment_1 -> LKEY comm_fill_1 RKEY .)
     LPAREN          reduce using rule 13 (comment_1 -> LKEY comm_fill_1 RKEY .)
     LKEY            reduce using rule 13 (comment_1 -> LKEY comm_fill_1 RKEY .)
@@ -631,33 +674,32 @@ state 36
     RBRACKET        reduce using rule 13 (comment_1 -> LKEY comm_fill_1 RKEY .)
     RPAREN          reduce using rule 13 (comment_1 -> LKEY comm_fill_1 RKEY .)
     RKEY            reduce using rule 13 (comment_1 -> LKEY comm_fill_1 RKEY .)
-    RESULT          reduce using rule 13 (comment_1 -> LKEY comm_fill_1 RKEY .)
     LBRACKET        reduce using rule 13 (comment_1 -> LKEY comm_fill_1 RKEY .)
     $end            reduce using rule 13 (comment_1 -> LKEY comm_fill_1 RKEY .)
 
 
-state 37
+state 38
 
     (14) mov_2 -> MOVEMENT . comment_0 mov_1
-    (10) comment_0 -> . comment_1
+    (10) comment_0 -> . comment_1 comment_0
     (11) comment_0 -> . empty
     (12) comment_1 -> . LPAREN comm_fill_1 RPAREN
     (13) comment_1 -> . LKEY comm_fill_1 RKEY
-    (24) empty -> .
+    (25) empty -> .
 
-    LPAREN          shift and go to state 18
-    LKEY            shift and go to state 19
-    DOTS            reduce using rule 24 (empty -> .)
-    TDOTS           reduce using rule 24 (empty -> .)
-    RESULT          reduce using rule 24 (empty -> .)
-    LBRACKET        reduce using rule 24 (empty -> .)
-    $end            reduce using rule 24 (empty -> .)
+    LPAREN          shift and go to state 19
+    LKEY            shift and go to state 20
+    DOTS            reduce using rule 25 (empty -> .)
+    TDOTS           reduce using rule 25 (empty -> .)
+    RESULT          reduce using rule 25 (empty -> .)
+    LBRACKET        reduce using rule 25 (empty -> .)
+    $end            reduce using rule 25 (empty -> .)
 
-    comment_0                      shift and go to state 40
-    comment_1                      shift and go to state 31
-    empty                          shift and go to state 32
+    comment_0                      shift and go to state 42
+    comment_1                      shift and go to state 32
+    empty                          shift and go to state 33
 
-state 38
+state 39
 
     (6) mov_1 -> sep_1 MOVEMENT comment_0 mov_2 .
 
@@ -668,7 +710,7 @@ state 38
     $end            reduce using rule 6 (mov_1 -> sep_1 MOVEMENT comment_0 mov_2 .)
 
 
-state 39
+state 40
 
     (15) mov_2 -> empty .
 
@@ -679,31 +721,43 @@ state 39
     $end            reduce using rule 15 (mov_2 -> empty .)
 
 
-state 40
+state 41
+
+    (10) comment_0 -> comment_1 comment_0 .
+
+    MOVEMENT        reduce using rule 10 (comment_0 -> comment_1 comment_0 .)
+    RESULT          reduce using rule 10 (comment_0 -> comment_1 comment_0 .)
+    LBRACKET        reduce using rule 10 (comment_0 -> comment_1 comment_0 .)
+    DOTS            reduce using rule 10 (comment_0 -> comment_1 comment_0 .)
+    TDOTS           reduce using rule 10 (comment_0 -> comment_1 comment_0 .)
+    $end            reduce using rule 10 (comment_0 -> comment_1 comment_0 .)
+
+
+state 42
 
     (14) mov_2 -> MOVEMENT comment_0 . mov_1
     (6) mov_1 -> . sep_1 MOVEMENT comment_0 mov_2
     (7) mov_1 -> . empty
     (8) sep_1 -> . DOTS
     (9) sep_1 -> . TDOTS
-    (24) empty -> .
+    (25) empty -> .
 
   ! shift/reduce conflict for DOTS resolved as shift
   ! shift/reduce conflict for TDOTS resolved as shift
     DOTS            shift and go to state 9
     TDOTS           shift and go to state 10
-    RESULT          reduce using rule 24 (empty -> .)
-    LBRACKET        reduce using rule 24 (empty -> .)
-    $end            reduce using rule 24 (empty -> .)
+    RESULT          reduce using rule 25 (empty -> .)
+    LBRACKET        reduce using rule 25 (empty -> .)
+    $end            reduce using rule 25 (empty -> .)
 
-  ! DOTS            [ reduce using rule 24 (empty -> .) ]
-  ! TDOTS           [ reduce using rule 24 (empty -> .) ]
+  ! DOTS            [ reduce using rule 25 (empty -> .) ]
+  ! TDOTS           [ reduce using rule 25 (empty -> .) ]
 
-    mov_1                          shift and go to state 41
+    mov_1                          shift and go to state 43
     sep_1                          shift and go to state 7
     empty                          shift and go to state 8
 
-state 41
+state 43
 
     (14) mov_2 -> MOVEMENT comment_0 mov_1 .
 
@@ -720,9 +774,9 @@ WARNING: shift/reduce conflict for LBRACKET in state 0 resolved as shift
 WARNING: shift/reduce conflict for DOTS in state 3 resolved as shift
 WARNING: shift/reduce conflict for TDOTS in state 3 resolved as shift
 WARNING: shift/reduce conflict for RESULT in state 6 resolved as shift
-WARNING: shift/reduce conflict for LBRACKET in state 20 resolved as shift
-WARNING: shift/reduce conflict for LBRACKET in state 24 resolved as shift
-WARNING: shift/reduce conflict for DOTS in state 40 resolved as shift
-WARNING: shift/reduce conflict for TDOTS in state 40 resolved as shift
+WARNING: shift/reduce conflict for LBRACKET in state 21 resolved as shift
+WARNING: shift/reduce conflict for LBRACKET in state 25 resolved as shift
+WARNING: shift/reduce conflict for DOTS in state 42 resolved as shift
+WARNING: shift/reduce conflict for TDOTS in state 42 resolved as shift
 WARNING: reduce/reduce conflict in state 4 resolved using rule (game -> empty)
 WARNING: rejected rule (metadata -> empty) in state 4
