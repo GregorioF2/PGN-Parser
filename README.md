@@ -16,10 +16,15 @@
   ```
 
 ### Correr parser
-  El `testing.py` es el archivo principal para correr y testear el modulo.
-  Los comandos serían:
+  El archivo `testing.py` es el principal para correr y testear el modulo.
+  Tiene multiples flags para testear diferentes cosas. Estos serían:
   * `-ls`, `--live_stream`  Si qres testear el parser con live stream input
   * `-t1`, `--test_1`       Correr parser para full game común Hikaru Magnus
   * `-t2`, `--test_2`       Correr parser para test chico con comentarios anidados
   * `-t3`, `--test_3`       Correr parser para multiples partidas
+  * `-t4`, `--test_4`       Correr parser para partida de analsis con varios comentarios de chess.com
+  * `-t5`, `--test_5`       Correr parser para historial de partidas chess.com
   * `-a`, `--all`           Correr todos los test juntos
+  
+## Ejemplo:
+`python testing.py -t1`
