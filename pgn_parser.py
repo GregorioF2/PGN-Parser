@@ -198,4 +198,4 @@ def p_error(t):
         error = t
 
 import ply.yacc as yacc
-parser = yacc.yacc()
+parser = yacc.yacc(errorlog=yacc.NullLogger())
