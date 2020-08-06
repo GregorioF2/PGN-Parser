@@ -1,4 +1,5 @@
-full_game_hikaru_magnus = '''[Event "GCT Croatia"]
+full_game_hikaru_magnus = {
+  'game': '''[Event "GCT Croatia"]
 [Site "Zagreb CRO"]
 [Date "2019.07.01"]
 [EventDate "2019.06.26"]
@@ -20,17 +21,27 @@ Rec8 22. Qb2 Nc5 23. Re3 Bxb3 24. Bxg7 Rg4 25. Bxh6 Bf6
 31. Qxd5 b6 32. g3 Nd7 33. Qxc6 Rgxc6 34. Rd5 Nf8 35. Rfd1 Ne6
 36. a4 Rc4 37. a5 Rb4 38. Rd7 bxa5 39. Rxa7 a4 40. Rdd7 Nd8
 41. Rd5 Ne6 42. Rda5 Rcc4 43. Kg2 1-0
-'''
+''',
+  'common_play': 'd4',
+  'nested_comment': 0,
+  'must_fail': False
+}
 
-small_game_three_coments_nested = '''[Event "GCT Croatia"]
+small_game_three_coments_nested = {
+  'game': '''[Event "GCT Croatia"]
 [PlyCount "85"]
 
 1. d4 Nf6 {2. c4 e6{asdaljlakd c4 {} {asdasd {Bxb3}} asdsad asd} asd} 2. c4 e6 3. Nf3 d5 4. Nc3 Be7 5. Bf4 O-O 6. e3 c5
 36. a4 Rc4 37. a5 Rb4 38. Rd7 bxa5 39. Rxa7 a4 40. Rdd7 Nd8
 41. Rd5 Ne6 42. Rda5 Rcc4 43. Kg2 1-0
-'''
+''',
+  'common_play': 'd4',
+  'nested_comment': 4,
+  'must_fail': False
+}
 
-multiple_games = '''[Event "GCT Croatia"]
+multiple_games = {
+  'game': '''[Event "GCT Croatia"]
 [Site "Zagreb CRO"]
 [Date "2019.07.01"]
 [PlyCount "85"]
@@ -52,9 +63,14 @@ multiple_games = '''[Event "GCT Croatia"]
 [PlyCount "85"]
 
 1. e4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 Be7 5. Bf4 O-O 6. e3 c5
-41. Rd5 Ne6 42. Rda5 Rcc4 43. Kg2 1-0'''
+41. Rd5 Ne6 42. Rda5 Rcc4 43. Kg2 1-0''',
+  'common_play': 'e4',
+  'nested_comment': 0,
+  'must_fail': False
+}
 
-game_of_chess_dot_com='''[Event "?"]
+game_of_chess_dot_com= {
+  'game': '''[Event "?"]
 [Site "?"]
 [Date "????.??.??"]
 [Round "?"]
@@ -64,9 +80,14 @@ game_of_chess_dot_com='''[Event "?"]
 
 1. d4 {<br /><br /><em>La partida podría haber continuado...</em>} (1. d4 Nf6 2.
 Nf3 e6 3. Bf4 b6 4. e3 Bb7 {+0.06}) (1. d4 d5 2. Nf3 e6 3. Nc3 c6 (3... Nf6 4.
-e3 c5 5. Bd3 Nc6 6. O-O a6 7. b3 cxd4 8. exd4 {0.00}) 4. Ng5)'''
+e3 c5 5. Bd3 Nc6 6. O-O a6 7. b3 cxd4 8. exd4 {0.00}) 4. Ng5)''',
+  'common_play': 'd4',
+  'nested_comment': 2,
+  'must_fail': False
+}
 
-games_history_downloaded_chess_dot_com='''[Site "Chess.com"]
+games_history_downloaded_chess_dot_com = {
+  'game': '''[Site "Chess.com"]
 [Date "2020.07.16"]
 [Round "-"]
 [White "mrtuvieja"]
@@ -78,7 +99,7 @@ games_history_downloaded_chess_dot_com='''[Site "Chess.com"]
 [EndTime "14:34:50 PDT"]
 [Termination "Victoria de mrtuvieja por tiempo"]
 
-1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Ng5 d5 5. exd5 Nxd5 6. Ne4 Bd6 7. O-O O-O 8.
+1. d4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Ng5 d5 5. exd5 Nxd5 6. Ne4 Bd6 7. O-O O-O 8.
 Nbc3 Nxc3 9. Nxc3 a6 10. Nd5 Be6 11. b3 b5 12. Nxc7 Bxc7 13. Bd3 e4 14. Bxe4 Qg5
 15. g3 Bd7 16. Qf3 Ne5 17. Qf4 Qxf4 18. gxf4 Ng4 19. Bxa8 Rxa8 20. d3 Re8 21.
 Be3 Nxe3 22. Rfe1 Nxc2 23. Rxe8+ Bxe8 24. Rc1 Bxf4 25. Rxc2 Bd7 26. Kg2 g5 27.
@@ -161,4 +182,13 @@ Bf4 dxc3 16. Nxc3 b5 17. axb5 axb5 18. Qb3 Nh6 19. Nxb5 Qe2 20. Na7+ Kd7 21.
 Nxc6 Kxc6 22. Ra6+ Kd7 23. Qb7+ Ke8 24. Qc6+ Ke7 25. Qxf6+ Ke8 26. Qxh8 Rxd3 27.
 Bxh6 Rxd2 28. Qxf8+ Kd7 29. Qd6+ Rxd6 30. Ra7+ Kc6 31. Ra6+ Kd7 32. Ra7+ Ke6 33.
 h4 gxh3 34. gxh3 Rd1 35. Rxd1 Qxd1+ 36. Kg2 Qd2 37. Rb7 Kd5 38. Bxd2 1-0
-'''
+''',
+  'common_play': 'e4',
+  'nested_comment': 2,
+  'must_fail': False
+}
+
+unbalanced_brackets = {
+  'game': '''[asda] [asdasd] [[asdsad] [][asdasd]''',
+  'must_fail': True
+}

@@ -1,5 +1,6 @@
 import re
 aceptado = True
+error = None
 
 
 tokens = (
@@ -80,17 +81,21 @@ def p_s(t):
     global plays
     global last_play
     global max_nested_level
+    if error:
+        return
+    if last_play == None:
+        print('No hubo jugadas')
+        return
     res =  (last_play, plays[last_play])
     for x in plays:
         if plays[x] > res[1]:
             res = (x, plays[x])
-    print('La primer jugada mas hecha en la serie es: ', res[0])
-    print('Maximo nivel de anidamiento con una jugada dentro es: ', max_nested_level)
+    print(' > Primer jugada más frecuente: ', res[0])
+    print(' > Comentario con jugada más anidado: ', max_nested_level, '\n')
     plays = {}
     last_play = None
 
-
-def p_game_empty(t):
+def p_game_fill(t):
     'game : metadata mov_1 result game'
     global plays
     global last_play
@@ -99,15 +104,15 @@ def p_game_empty(t):
     else:
         plays[last_play] +=1
 
-def p_game_fill(t):
+def p_game_empty(t):
     'game : empty'
     
 def p_metadata(t):
-    '''metadata : LBRACKET comm_fill_1 RBRACKET metadata
+    '''metadata : LBRACKET fill RBRACKET metadata
                 | empty'''
 
 def p_mov_1_fill(t):
-    'mov_1 : sep_1 MOVEMENT comment_0 mov_2'
+    'mov_1 : sep_1 MOVEMENT comment_chain mov_2'
     global last_play
     last_play = t[2]
 
@@ -118,47 +123,47 @@ def p_sep_1(t):
     '''sep_1 : DOTS
              | TDOTS'''
 
-def p_comment_0(t):
-    'comment_0 : comment_1 comment_0'
+def p_comment_chain(t):
+    'comment_chain : comment comment_chain'
     global max_nested_level
     incoming_max = t[1] if t[1] > t[2] else t[2]
     max_nested_level = incoming_max if incoming_max > max_nested_level else max_nested_level
     t[0] = max_nested_level
 
-def p_comment_0_empty(t):
-    'comment_0 : empty'
+def p_comment_chain_empty(t):
+    'comment_chain : empty'
     t[0] = 0
 
-def p_comment_1(t):
-    '''comment_1 : LPAREN comm_fill_1 RPAREN
-                 | LKEY comm_fill_1 RKEY'''
+def p_comment(t):
+    '''comment : LPAREN fill RPAREN
+                 | LKEY fill RKEY'''
     t[0] = t[2]
 
 
 def p_mov_2_fill(t):
-    'mov_2 : MOVEMENT comment_0 mov_1'
+    'mov_2 : MOVEMENT comment_chain mov_1'
 
 def p_mov_2_empty(t):
     'mov_2 : empty'
 
 
-def p_comm_fill_1_token(t):
-    'comm_fill_1 : tok comm_fill_1'
+def p_fill_token(t):
+    'fill : tok fill'
     if t[1] > t[2]:
         t[0] = t[1]
     else:
         t[0] = t[2]
 
 
-def p_comm_fill_1_comment(t):
-    'comm_fill_1 : comment_1 comm_fill_1'
+def p_fill_comment(t):
+    'fill : comment fill'
     if t[1] >= t[2]:
         t[0] = t[1] + 1
     else: 
         t[0] = t[2]
 
-def p_comm_fill_1_empty(t):
-    'comm_fill_1 : empty'
+def p_fill_empty(t):
+    'fill : empty'
     t[0] = 0
 
 def p_tok_id(t):
@@ -187,8 +192,10 @@ def p_empty(p):
 
 def p_error(t):
     global aceptado
+    global error
     aceptado = False
-    print('Input RECHAZADO')
+    if not error:
+        error = t
 
 import ply.yacc as yacc
 parser = yacc.yacc()
