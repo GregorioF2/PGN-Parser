@@ -34,5 +34,5 @@
 ### Usar custom input
   En caso de que se quiera con probar con input custom, y no quieran lidiar con escribirlo en el modo de `live stream`. Se puede ejecutar el parser de la siguiente forma
   ```
-    [] [] 1.d4 [] 1.d5 [] 1.d5 | python testing.py -ls
+    echo '[] [] 1.d4 [] 1.d5 [] 1.d5' | python testing.py -ls
   ```
